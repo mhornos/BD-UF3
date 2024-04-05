@@ -1,18 +1,6 @@
--- SUBPROGRAMES
+# SUBPROGRAMES
 
-	-- DELIMITER //
-	-- CREATE FUNCTION funcio_test(arg1 tipus1,...) 
-	-- RETURNS tipusRetorn
-	-- BEGIN
-	-- Declaració de variables
-	--  Declaració de cursors
-	-- Declaració de handlers
-	-- Instruccions acabades amb punt i coma(;)
-	-- RETURN <expressió de retorn>;
-	-- END
-	-- //
-	-- DELIMITER;
-
+``sql
 
 -- ex 1
 DELIMITER //
@@ -79,7 +67,7 @@ DELIMITER ;
 SELECT spIncrement(124,10);
 
 
-
+´´´
 
 
 
