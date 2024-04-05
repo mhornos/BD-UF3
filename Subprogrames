@@ -1,6 +1,6 @@
 # SUBPROGRAMES
 
-```sql
+```mysql
 
 -- ex 1
 DELIMITER //
