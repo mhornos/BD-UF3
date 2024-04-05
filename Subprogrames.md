@@ -1,8 +1,7 @@
+# 1. Subprogrames
+
+### Ex. 1
 ``` mysql
-
--- 1.SUBPROGRAMES
-
--- ex 1
 DELIMITER //
 DROP FUNCTION IF EXISTS spData;
 CREATE FUNCTION spData(pData DATE)
@@ -16,8 +15,10 @@ END //
 DELIMITER ;
 
  SELECT spData('1988-12-01');
- 
--- EX 2
+ ````
+
+### Ex. 2
+``` mysql
 DELIMITER //
 DROP FUNCTION IF EXISTS spPotencia;
 CREATE FUNCTION spPotencia(pBase INT, pExponent INT)
@@ -40,9 +41,10 @@ END //
 DELIMITER ;
 
 SELECT spPotencia(2,3);
+```
 
-
--- ex 3
+### Ex. 3
+``` mysql
 DELIMITER //
 DROP FUNCTION IF EXISTS spIncrement;
 CREATE FUNCTION spIncrement(pIdEmpleat INT, pIncrementPercent INT)
@@ -65,8 +67,7 @@ DELIMITER ;
 
 
 SELECT spIncrement(124,10);
-
-´´´
+```
 
 
 
