@@ -1,0 +1,92 @@
+-- SUBPROGRAMES
+
+	-- DELIMITER //
+	-- CREATE FUNCTION funcio_test(arg1 tipus1,...) 
+	-- RETURNS tipusRetorn
+	-- BEGIN
+	-- Declaració de variables
+	--  Declaració de cursors
+	-- Declaració de handlers
+	-- Instruccions acabades amb punt i coma(;)
+	-- RETURN <expressió de retorn>;
+	-- END
+	-- //
+	-- DELIMITER;
+
+
+-- ex 1
+DELIMITER //
+DROP FUNCTION IF EXISTS spData;
+CREATE FUNCTION spData(pData DATE)
+RETURNS VARCHAR(10)
+DETERMINISTIC
+BEGIN
+    DECLARE vRetorn VARCHAR(10);
+    SET vRetorn = DATE_FORMAT(pData, '%d-%m-%Y');
+    RETURN vRetorn;
+END //
+DELIMITER ;
+
+ SELECT spData('1988-12-01');
+ 
+-- EX 2
+DELIMITER //
+DROP FUNCTION IF EXISTS spPotencia;
+CREATE FUNCTION spPotencia(pBase INT, pExponent INT)
+RETURNS BIGINT
+DETERMINISTIC
+BEGIN
+    DECLARE vResultat INT DEFAULT 1;
+    DECLARE i INT;
+    IF pExponent < 0 THEN
+        SET pBase = 1 / pBase;
+        SET pExponent = -pExponent;
+    END IF;
+    SET i = 1;
+    WHILE i <= pExponent DO
+        SET vResultat = vResultat * pBase;
+        SET i = i + 1;
+    END WHILE;
+    RETURN vResultat;
+END //
+DELIMITER ;
+
+SELECT spPotencia(2,3);
+
+
+-- ex 3
+DELIMITER //
+DROP FUNCTION IF EXISTS spIncrement;
+CREATE FUNCTION spIncrement(pIdEmpleat INT, pIncrementPercent INT)
+RETURNS DECIMAL(10,2)
+NOT DETERMINISTIC READS SQL DATA
+BEGIN
+    DECLARE pSalariActual DECIMAL(10,2);
+    DECLARE vNouSalari DECIMAL(10,2);
+
+
+    SELECT salari INTO pSalariActual
+    FROM empleats
+    WHERE empleat_id = pIdEmpleat;
+
+    SET vNouSalari = pSalariActual + (pSalariActual * (pIncrementPercent / 100));
+
+    RETURN vNouSalari;
+END //
+DELIMITER ;
+
+
+SELECT spIncrement(124,10);
+
+
+
+
+
+
+
+
+
+
+
+
+
