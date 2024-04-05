@@ -1,6 +1,6 @@
 # SUBPROGRAMES
 
-``sql
+```sql
 
 -- ex 1
 DELIMITER //
