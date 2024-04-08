@@ -90,7 +90,7 @@ SELECT spIncrement(124,10);
 
 ## ENUNCIATS DE PROCEDIMENTS
 
-### EX. 2
+### Ex. 2
 
 Fes un procediment que intercanvii el sou de dos empleats passats per
 paràmetre.
@@ -127,3 +127,65 @@ BEGIN
     
 END 
 ``` 
+
+### Ex. 3
+
+Fes un procediment que donat dos Ids d'empleat assigni el codi de
+departament del primer en el segon.
+
+
+``` mysql
+DELIMITER //
+CREATE PROCEDURE spSwapDepId (IN pEmpleatId1 INT, IN pEmpleatId2 INT )
+BEGIN
+
+	-- Obtenir departament_id de pEmpleatId1
+    
+    -- modificar departament_id de pEmpleatId2 
+    
+    UPDATE empleats
+		SET departament_id = (SELECT departament_id
+							FROM empleats
+						WHERE empleat_id = pEmpleatId1)
+		WHERE empleat_id = pEmpleatId2;
+END // 
+
+```
+
+### Ex. 4
+
+Fes un procediment que donat dos codis de departament assigni tots els
+empleats del segon en el primer. Un cop executat el procediment el departament que
+correspont en el segon paràmetre ha de quedar desert/sense cap empleat.
+``` mysql
+DROP PROCEDURE IF EXISTS spMoureEmpleats;
+DELIMITER//
+CREATE PROCEDURE spMoureEmpleats (IN pDepId1 INT, IN pDepId2 INT)
+BEGIN
+	
+    IF pDepId1 IS NOT NULL THEN
+		UPDATE  empleats
+			SET departament_id = pDepid1
+		WHERE departament_id = pDepId2;
+	END IF;
+    
+END;
+
+``` 
+### Ex. 5
+
+Fes un procediment per mostrar un llistat dels empleats. Volem veure el
+id_empleat, nom_empleat, nom_departament i el nom de la localització del departament.
+``` mysql
+DROP PROCEDURE IF EXISTS spMostrarEmpleats;
+DELIMITER//
+CREATE PROCEDURE spMostrarEmpleats ()
+BEGIN
+
+	SELECT  e.id_empleat, e.nom AS nom_empleat, d.nom
+		FROM empleats e
+	JOIN departaments d ON e.departament_id = d.departament_id
+    
+    
+END;
+```
