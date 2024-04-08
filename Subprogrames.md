@@ -1,6 +1,13 @@
 # 1. Subprogrames
 
+## ENUNCIATS DE FUNCIONS
+
 ### Ex. 1
+Fes una funció anomenada spData, tal que donada una data en format
+MySQL ( AAAA-MM-DD ) ens retorni una cadena de caràcters en format DD-MM-AAAA
+
+Exemple : SELECT spData('1988-12-01') => 01-12-1988
+
 ``` mysql
 DELIMITER //
 DROP FUNCTION IF EXISTS spData;
@@ -18,6 +25,10 @@ DELIMITER ;
  ````
 
 ### Ex. 2
+Fes una funció anomenada spPotencia, tal que donada una base i un
+exponent, ens calculi la seva potència. Intenta no utilitzar la funció POW.
+
+Exemple : SELECT spPotencia(2,3) => 8
 ``` mysql
 DELIMITER //
 DROP FUNCTION IF EXISTS spPotencia;
@@ -44,6 +55,14 @@ SELECT spPotencia(2,3);
 ```
 
 ### Ex. 3
+
+Fes una funció anomenada spIncrement que donat un codi d’empleat i un
+% de increment, ens calculi el salari sumant aquest percentatge.
+
+Per exemple, suposem que l’ empleat amb id_empleat = 124 té un salari de 1000
+
+Exemple: SELECT spIncrement(124,10) obtindriem -> 1100
+
 ``` mysql
 DELIMITER //
 DROP FUNCTION IF EXISTS spIncrement;
@@ -69,14 +88,42 @@ DELIMITER ;
 SELECT spIncrement(124,10);
 ```
 
+## ENUNCIATS DE PROCEDIMENTS
 
+### EX. 2
 
+Fes un procediment que intercanvii el sou de dos empleats passats per
+paràmetre.
 
+``` mysql
+DROP PROCEDURE IF EXISTS spSwapSous;
+DELIMITER //
+CREATE PROCEDURE spSwapSous (IN pEmpleatId1 INT, IN pEmpleatId2 INT)
+BEGIN
 
+	DECLARE vSalariTmp DECIMAL (8,2);
 
+	IF (SELECT empleat_id
+			FROM empleats
+		WHERE empleat_id = pEmpleatId1) IS NOT NULL
+        AND
+        (SELECT empleat_id
+			FROM empleats
+		WHERE empleat_id = pEmpleatId2) IS NOT NULL
+        THEN
+	SELECT salari INTO vSalariEmp1
+		FROM empleats
+	WHERE empleat_id = pEmpleatId1;
 
+	UPDATE empleats 
+		SET salari = (SELECT salari
+							FROM empleats
+						WHERE empleat_id = pEmpleat2)
+	WHERE empleat_id = pEmpleatId1;
 
-
-
-
-
+	UPDATE empleats
+		SET salari = vSalariEmp1
+	WHERE empleat_id = pEmpleatId2;
+    
+END 
+``` 
