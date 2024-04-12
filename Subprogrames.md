@@ -189,3 +189,117 @@ BEGIN
     
 END;
 ```
+
+
+### Ex. 7
+
+Volem fer un registre dels usuaris que entren al nostre sistema. Per fer-ho
+primer caldrà crear una taula amb dos camps, un per guardar l’usuari i l’altre per guardar
+la data i hora de l’accés. 
+
+```mysql
+CREATE TABLE usuaris (
+	usuari	VARCHAR(100),
+    access	DATETIME
+);
+
+DELIMITER //
+DROP PROCEDURE IF EXISTS spRegistrarUsuari;
+
+CREATE PROCEDURE spRegistrarUsuari()
+BEGIN
+	INSERT INTO registre_usuaris(usuari,access)
+		VALUES(CURRENT_USER(),NOW());
+        
+END
+//
+
+SELECT * FROM spRegistrarUsuari.rrhh;
+
+
+```
+
+### Ex. 11
+
+Fes un procediment que ens permeti modificar el nom i cognom d’un
+empleat.
+
+```mysql
+DELIMITER //
+DROP PROCEDURE IF EXISTS spModificarDadesEmpleat;
+
+CREATE PROCEDURE spModificarDadesEmpleat(IN pEmpleatId INT, OUT pEmpleatNom VARCHAR(20), OUT pEmpleatCognoms VARCHAR(80))
+BEGIN
+	IF pEmpleatNom IS NULL OR pEmpleatCognoms IS NOT NULL
+    UPDATE empleats
+		SET nom = pEmpleatNom,
+			cognoms = pEmpleatCognoms
+	WHERE empleat_id = pEmpleatID;
+	
+END //
+
+```
+
+### Ex. 12
+
+ Crea una taula d’auditoria anomenada logs_usuaris. Aquesta taula la
+utilitzarem per monitoritzar algunes de les accions que fan els usuaris sobre les dades,
+per exemple si actualitzen dades, eliminen registres.
+
+```mysql
+DROP PROCEDURE IF EXISTS spRegistrarLog;
+
+CREATE PROCEDURE spRegistrarLog(ptaula VARCHAR(50), pAccio VARCHAR(50), pValorPK VARCHAR(20))
+BEGIN
+	INSERT INTO logs_usuaris (usuari,data,taula,accio,valor_pk)
+		VALUES(CURRENT_USER(), NOW(), pTaula, pAccio, pValorPK);
+END
+//
+
+
+```
+
+### Ex. 13
+
+Fes un procediment que ens permeti eliminar un departament determinat.
+El departament s’ha d’eliminar de la taula departaments. Utilitza a més dins d’aquest
+procediment, el procediment creat anteriorment (spRegistrarLog) per guardar també un
+registre del que ha realitzat l’usuari. Ens ha de quedar clar que l’usuari actual, en data X
+ha eliminat de la taula DEPARTAMENTS el codi departament Y.
+
+
+```mysql
+DELIMITER //
+DROP PROCEDURE IF EXISTS spEliminarDep;
+
+CREATE PROCEDURE spEliminarDep(pDepId INT)
+BEGIN
+	DECLARE vDepId INT
+    
+	SELECT departament_id INTO vDepId
+		FROM departaments
+	WHERE departament_id = pDepId;
+	
+	IF vDepId IS NOT NULL THEN
+		SELECT 'dins if';
+        DELETE FROM departaments
+			WHERE departament_id = pDepId
+	-- Tenir en compte que no tingui historial_feines
+    UPDATE empleats
+		SET id_cap = NULL
+        WHERE empleat_id IN (SELECT empleat_id
+								FROM empleats
+							WHERE departament_id = pDepId)
+    
+    -- Tenir en compte que no tingui historial_feines
+    DELETE FROM historial_feines
+		WHERE departament_id = pDepId;
+	
+    DELETE FROM departaments
+		WHERE departament_id = pDepId;
+    
+    ELSE SELECT 'dins else';
+			
+END
+//
+```
