@@ -303,3 +303,12 @@ BEGIN
 END
 //
 ```
+
+### Ex. 14
+
+Fes un procediment que ens posi en paràmetres de sortida, el número
+d’empleats que tenim, el número de departaments i el número de localitzacions
+
+```mysql
+
+```
