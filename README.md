@@ -10,4 +10,4 @@
 [4. Usuaris i permisos](https://github.com/mhornos/DAW1-BD/blob/main/UsuariosYPermisos.md)
 
 ## UF4 (MongoDB)
-[1. Consultes]([https://github.com/mhornos/DAW1-BD/blob/main/MongoDB.md](https://github.com/mhornos/DAW1-BD/blob/main/Mongo1Consultes.md))
+[1. Consultes](https://github.com/mhornos/DAW1-BD/blob/main/Mongo1Consultes.md)
