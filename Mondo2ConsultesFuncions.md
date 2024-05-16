@@ -40,3 +40,23 @@ db.students.find({$and: [{birth_year: {$gte:1990}},{birth_year:{$lte:1999}}]},{}
 ```js
 db.students.find({$and: [{birth_year: {$gte:1990}},{birth_year:{$lte:1999}},{gender:"M"}]},{})
 ```
+
+9. Busca els estudiants que no han nascut a l’any 1985
+```js
+db.students.find({birth_year:{$ne:1985}},{})
+```
+
+10. Busca aquells estudiants que han nascut l’any 1970,1980 o 1990
+```js
+db.students.find({$or: [{birth_year:1970},{birth_year:1980},{birth_year:1990}]},{})
+```
+
+11. Busca aquells estudiants que no han nascut l’any 1970,1980 o 1990
+```js
+db.students.find({$and: [{birth_year: {$ne:1970}},{birth_year: {$ne:1980}},{birth_year: {$ne:1990}}]},{})
+```
+
+12. Busca aquells estudiants nascuts en any parell.
+```js
+db.students.find({ birth_year: { $mod: [2, 0] } })
+```
