@@ -56,7 +56,27 @@ db.students.find({$or: [{birth_year:1970},{birth_year:1980},{birth_year:1990}]},
 db.students.find({$and: [{birth_year: {$ne:1970}},{birth_year: {$ne:1980}},{birth_year: {$ne:1990}}]},{})
 ```
 
-12. Busca aquells estudiants nascuts en any parell.
+12. Busca aquells estudiants nascuts en any parell
 ```js
 db.students.find({ birth_year: { $mod: [2, 0] } })
+```
+
+13. Busca els estudiants que tinguin telèfon auxiliar
+```js
+db.students.find({phone_aux: {$exists: true}},{})
+```
+
+14. Busca els estudiants que NO tinguin telèfon auxiliar
+```js
+db.students.find({phone_aux: {$exists: false}},{})
+```
+
+15. Busca els estudiants que no tinguin segon cognom
+```js
+db.students.find({lastname2: {$exists: false} },{})
+```
+
+16. Busca els estudiants que no tinguin telèfon auxiliar
+```js
+db.students.find({$and:[{phone_aux: {$exists: true}}, {lastname1: {$exists: true}}, {lastname2: {$exists: false}}]},{})
 ```
