@@ -1,5 +1,6 @@
 # Exercici 2 CONSULTES AMB FUNCIONS
 
+ - ### (Base de dades edx – col·lecció students)
 
  1. Busca els estudiants de gènere masculí
 ```js
@@ -79,4 +80,27 @@ db.students.find({lastname2: {$exists: false} },{})
 16. Busca els estudiants que no tinguin telèfon auxiliar
 ```js
 db.students.find({$and:[{phone_aux: {$exists: true}}, {lastname1: {$exists: true}}, {lastname2: {$exists: false}}]},{})
+```
+
+17. Busca els estudiants que el seu correu electrònic acabi en .net
+```js
+db.students.find({email: {$regex: /net$/}},{})
+```
+
+18. Busca els estudiants que el seu telèfon comenci per 622
+```js
+db.students.find({phone: {$regex: /^622/}},{})
+```
+
+19. Busca els estudiants que el seu dni comenci i acabi amb una lletra
+```js
+db.students.find({dni: {$regex: /^[a-z].*[a-z]$/, $options: 'i'}},{})
+```
+
+<br> <br> 
+ - ### (Base de dades edx – col·lecció bios)
+
+24. Busca aquells desenvolupadors que han realitzat contribucions en OOP
+```sql
+db.bios.find({contribs: "OOP"},{})
 ```
