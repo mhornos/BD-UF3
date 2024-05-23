@@ -13,3 +13,5 @@
 [1. Consultes](https://github.com/mhornos/DAW1-BD/blob/main/Mongo1Consultes.md)
 
 [2. Consultes amb funcions](https://github.com/mhornos/DAW1-BD/blob/main/Mongo2ConsultesFuncions.md)
+
+[3. Aggregation Framework](https://github.com/mhornos/DAW1-BD/blob/main/Mongo3Aggregation.md)
