@@ -15,3 +15,5 @@
 [2. Consultes amb funcions](https://github.com/mhornos/DAW1-BD/blob/main/Mongo2ConsultesFuncions.md)
 
 [3. Aggregation Framework](https://github.com/mhornos/DAW1-BD/blob/main/Mongo3Aggregation.md)
+
+[4.  Aggregation Framework (examen bd ACB)](https://github.com/mhornos/DAW1-BD/blob/main/Mongo4AggregationACB.md)
