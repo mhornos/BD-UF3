@@ -97,6 +97,16 @@ db.students.find({phone: {$regex: /^622/}},{})
 db.students.find({dni: {$regex: /^[a-z].*[a-z]$/, $options: 'i'}},{})
 ```
 
+20. Busca els estudiants que el seu nom comenci per una vocal
+```js
+db.students.find({name: {$regex: /^[aeiou]/, $options: 'i'}},{})
+```
+
+21. Busca els estudiants que el seu nom sigui compost
+```js
+db.students.find({name: {$regex: /[" "]/}},{})
+```
+
 <br> <br> 
  - ### (Base de dades edx – col·lecció bios)
 
