@@ -107,10 +107,50 @@ db.students.find({name: {$regex: /^[aeiou]/, $options: 'i'}},{})
 db.students.find({name: {$regex: /[" "]/}},{})
 ```
 
+22. Busca els estudiants amb un nom més llarg de 13 caràcters
+```js
+db.students.find({ $expr: { $gt: [{ $strLenCP: "$name" }, 13] } })
+```
+
+23. Busca els estudiants amb 3 o més vocals en el seu nom
+```js
+db.students.find({ name: { $regex: /.*[aeiou].*[aeiou].*[aeiou].*/, $options: 'i' } })
+```
+
 <br> <br> 
  - ### (Base de dades edx – col·lecció bios)
 
 24. Busca aquells desenvolupadors que han realitzat contribucions en OOP
-```sql
+```js
 db.bios.find({contribs: "OOP"},{})
+```
+
+25. Busca aquells desenvolupadors que han realitzat contribucions en OOP o Java
+```js
+db.bios.find({ contribs: { $in: ["OOP", "Java"] } })
+```
+
+26. Busca aquells desenvolupadors que han realitzat contribucions en OOP i Simula
+```js
+db.bios.find({ contribs: { $all: ["OOP", "Simula"] } })
+```
+
+27. Busca aquells desenvolupadors que siguin vius
+```js
+db.bios.find({ deathYear: { $exists: false } })
+```
+
+28. Busca aquells desenvolupadors que siguin morts
+```js
+db.bios.find({ deathYear: { $exists: true } })
+```
+
+30. Busca aquells desenvolupadors que han obtingut un premi a l’any 2002
+```js
+db.bios.find({ "awards.year": 2002 })
+```
+
+32. Busca aquells desenvolupadors que han obtingut exactament 3 premis.
+```js
+db.bios.find({ awards: { $size: 3 } })
 ```
