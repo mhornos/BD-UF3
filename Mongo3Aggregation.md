@@ -17,6 +17,45 @@ aquells empleats que estiguin en un departament.
 ```js
 db.empleats.aggregate([{$match: {"departament.codi": {$ne: null}}}, {$group: {_id:"departament.codi", quantitat: {$count:{}}}}])
 ```
+
+3. Ordena el resultat anterior per els departament de més a menys nombre
+d’empleats.
+```js
+db.empleados.aggregate([
+  { $match: { "departament": { $exists: true } } },
+  { $group: { _id: "$departament", cantidad: { $sum: 1 } } },
+  { $sort: { cantidad: -1 } }
+])
+```
+
+4. De cada departament mostra el salari més alt. Mostra id de departament i el salari
+més alt.
+```js
+db.empleados.aggregate([
+  { $match: { "departament": { $exists: true } } },
+  { $group: { _id: "$departament", salarioMaximo: { $max: "$salari" } } }
+])
+```
+
+5. Quina és la massa salarial de cada departament? Mostra id de departament i la
+massa salarial.
+```js
+[
+  { $match: { "departament": { $exists: true } } },
+  { $group: { _id: "$departament.codi", masaSalarial: { $sum: "$salari" } } }
+]
+```
+
+6. Només mostra aquells departaments que tinguin una massa salarial igual o
+superior a 19000
+```js
+db.empleados.aggregate([
+  { $match: { "departament": { $exists: true } } },
+  { $group: { _id: "$departament.codi", masaSalarial: { $sum: "$salari" } } },
+  { $match: { masaSalarial: { $gte: 19000 } } }
+])
+```
+
 <br><br>
  ## Exercicis
 
